@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -e
+
+: ${SOCKET:=/var/run/docker.sock}
+: ${PORT:=2375}
+
+usage() {
+cat << EOF
+docker run -d \
+  -p 2375:2375
+  --volume=/var/run/docker.sock:/var/run/docker.sock \
+  --name=docker-http \
+  sequenceiq/socat
+EOF
+exit
+}
+
+main() {
+  # if the container started without a proper volume
+  if [ -e $SOCKET ]; then
+    # starts a proxy from a unix socket to a port
+    socat -d -d TCP-L:${PORT},fork UNIX:${SOCKET}
+  else
+    usage
+  fi
+}
+
+main "$@"
