@@ -5,24 +5,20 @@ set -e
 : ${SOCKET:=/var/run/docker.sock}
 : ${PORT:=2375}
 
-usage() {
-cat << EOF
-docker run -d \
-  -p 2375:2375
-  --volume=/var/run/docker.sock:/var/run/docker.sock \
-  --name=docker-http \
-  sequenceiq/socat
-EOF
-exit
-}
-
 main() {
-  # if the container started without a proper volume
+  # if the container started with a proper --volume option
   if [ -e $SOCKET ]; then
-    # starts a proxy from a unix socket to a port
+    # starts a socat proxy from a unix socket to the port
     socat -d -d TCP-L:${PORT},fork UNIX:${SOCKET}
   else
-    usage
+    # otherwise prints the correct command to stdout
+    cat << EOF
+    docker run -d \
+      -p 2375:2375
+      --volume=/var/run/docker.sock:/var/run/docker.sock \
+      --name=docker-http \
+      sequenceiq/socat
+EOF
   fi
 }
 
