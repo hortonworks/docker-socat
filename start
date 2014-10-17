@@ -20,7 +20,7 @@ main() {
   # if the container started without a proper volume
   if [ -e $SOCKET ]; then
     # starts a proxy from a unix socket to a port
-    socat -d -d TCP-L:${PORT},fork UNIX:${SOCKET}
+    socat -d TCP-L:${PORT},fork UNIX:${SOCKET}
   else
     usage
   fi
