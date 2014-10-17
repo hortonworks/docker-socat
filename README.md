@@ -1,4 +1,4 @@
-The latest 1.3.0 version of boot2docker changes the a couple of things:
+The latest 1.3.0 version of boot2docker changes a couple of things:
 
 - comes with TLS enabled by default
 - changes default port from 2375 to **2376**
