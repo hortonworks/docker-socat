@@ -16,7 +16,7 @@ One solution is to start a container which uses `socat` to proxy the unix
 socket file as tcp port. It is containerized for you:
 
 ```
-$(docker run sequenceiq/socat)
+$(docker run hortonworks/socat)
 ```
 
 Now you can reach Docker the *old* way:
