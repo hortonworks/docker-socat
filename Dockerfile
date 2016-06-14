@@ -1,5 +1,5 @@
 FROM debian:jessie
-MAINTAINER lajos.papp@sequenceiq.com
+MAINTAINER Hortonworks
 
 RUN apt-get update && apt-get install -y socat
 COPY ./start /
